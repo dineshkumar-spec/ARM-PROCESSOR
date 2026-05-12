@@ -1,0 +1,44 @@
+#include <stdint.h>
+
+#define RCC_AHB1ENR (*(volatile uint32_t*)0x40023830)
+#define GPIOD_MODER (*(volatile uint32_t*)0x40020C00)
+#define GPIOD_ODR (*(volatile uint32_t*)0x40020C14)
+
+int main(void)
+{
+  RCC_AHB1ENR |= (1<<3);
+
+  GPIOD_MODER &= ~(3<<24);
+  GPIOD_MODER |=(1<<24);
+
+  GPIOD_MODER &= ~(3<<26);
+  GPIOD_MODER |=(1<<26);
+
+  GPIOD_MODER &= ~(3<<28);
+  GPIOD_MODER |=(1<<28);
+
+  GPIOD_MODER &= ~(3<<30);
+  GPIOD_MODER |=(1<<30);
+
+  while(1){
+	  GPIOD_ODR |= (1<<12);
+	  for(int i=0;i<500000;i++);
+	  GPIOD_ODR &= ~(1<<12);
+	  for(int i=0;i<500000;i++);
+
+	  GPIOD_ODR |= (1<<13);
+	  for(int i=0;i<500000;i++);
+	  GPIOD_ODR &= ~(1<<13);
+	  for(int i=0;i<500000;i++);
+
+	  GPIOD_ODR |= (1<<14);
+	  for(int i=0;i<500000;i++);
+	  GPIOD_ODR &= ~(1<<14);
+	  for(int i=0;i<500000;i++);
+
+	  GPIOD_ODR |= (1<<15);
+	  for(int i=0;i<500000;i++);
+	  GPIOD_ODR &= ~(1<<15);
+	  for(int i=0;i<500000;i++);
+  }
+}
